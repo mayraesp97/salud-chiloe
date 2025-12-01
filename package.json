@@ -1,0 +1,14 @@
+{
+  "name": "agenda-salud-rilan",
+  "version": "1.0.0",
+  "description": "Aplicación web para agendar visitas y consultar exámenes en un consultorio familiar de Rilán (Chiloé).",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "author": "Mayra Espinoza",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.19.0"
+  }
+}

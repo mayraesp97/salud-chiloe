@@ -1,0 +1,45 @@
+{% extends "consultorio/base.html" %}
+
+{% block title %}Mis exámenes - AgendaSalud Rilán{% endblock %}
+
+{% block content %}
+  <h1 class="h4 mb-3">Mis exámenes</h1>
+  <p class="text-muted">Ingresa tu RUT para consultar el estado de tus exámenes.</p>
+
+  <form method="post" class="row g-2 mb-3">
+    {% csrf_token %}
+    <div class="col-sm-6 col-md-4">
+      {{ form.patient_rut.label_tag }}
+      {{ form.patient_rut }}
+      {{ form.patient_rut.errors }}
+    </div>
+    <div class="col-sm-6 col-md-3 d-flex align-items-end">
+      <button type="submit" class="btn btn-outline-primary">Buscar</button>
+    </div>
+  </form>
+
+  {% if exams %}
+    <div class="table-responsive">
+      <table class="table table-sm table-striped">
+        <thead>
+          <tr>
+            <th>Fecha</th>
+            <th>Examen</th>
+            <th>Estado</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for e in exams %}
+            <tr>
+              <td>{{ e.date }}</td>
+              <td>{{ e.name }}</td>
+              <td>{{ e.get_status_display }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% elif rut %}
+    <p class="text-muted">No se encontraron exámenes para el RUT {{ rut }}.</p>
+  {% endif %}
+{% endblock %}

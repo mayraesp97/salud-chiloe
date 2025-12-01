@@ -1,0 +1,50 @@
+{% extends "consultorio/base.html" %}
+
+{% block title %}Agendar visita - AgendaSalud Rilán{% endblock %}
+
+{% block content %}
+  <h1 class="h4 mb-3">Agendar una visita</h1>
+  <p class="text-muted">
+    Completa tus datos y selecciona uno de los horarios disponibles para agendar tu visita.
+  </p>
+
+  <form method="post" class="row g-3">
+    {% csrf_token %}
+    <div class="col-md-6">
+      {{ form.patient_name.label_tag }} 
+      {{ form.patient_name|add_class:"form-control" }}
+      {{ form.patient_name.errors }}
+    </div>
+    <div class="col-md-6">
+      {{ form.patient_rut.label_tag }}
+      {{ form.patient_rut|add_class:"form-control" }}
+      {{ form.patient_rut.errors }}
+    </div>
+    <div class="col-md-6">
+      {{ form.email.label_tag }}
+      {{ form.email|add_class:"form-control" }}
+      {{ form.email.errors }}
+    </div>
+    <div class="col-md-6">
+      {{ form.phone.label_tag }}
+      {{ form.phone|add_class:"form-control" }}
+      {{ form.phone.errors }}
+    </div>
+    <div class="col-12">
+      {{ form.reason.label_tag }}
+      {{ form.reason|add_class:"form-control" }}
+      {{ form.reason.errors }}
+    </div>
+    <div class="col-12">
+      {{ form.slot.label_tag }}
+      {{ form.slot|add_class:"form-select" }}
+      {{ form.slot.errors }}
+      <p class="form-text">
+        Se muestran solo horarios disponibles desde hoy en adelante.
+      </p>
+    </div>
+    <div class="col-12">
+      <button type="submit" class="btn btn-success">Confirmar hora</button>
+    </div>
+  </form>
+{% endblock %}

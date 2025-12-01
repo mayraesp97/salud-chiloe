@@ -1,0 +1,47 @@
+{% extends "consultorio/base.html" %}
+
+{% block title %}Mis visitas - AgendaSalud Rilán{% endblock %}
+
+{% block content %}
+  <h1 class="h4 mb-3">Mis visitas agendadas</h1>
+  <p class="text-muted">Ingresa tu RUT para revisar las visitas que tienes agendadas.</p>
+
+  <form method="post" class="row g-2 mb-3">
+    {% csrf_token %}
+    <div class="col-sm-6 col-md-4">
+      {{ form.patient_rut.label_tag }}
+      {{ form.patient_rut }}
+      {{ form.patient_rut.errors }}
+    </div>
+    <div class="col-sm-6 col-md-3 d-flex align-items-end">
+      <button type="submit" class="btn btn-outline-primary">Buscar</button>
+    </div>
+  </form>
+
+  {% if appointments %}
+    <div class="table-responsive">
+      <table class="table table-sm table-striped">
+        <thead>
+          <tr>
+            <th>Fecha</th>
+            <th>Hora</th>
+            <th>Tipo de atención</th>
+            <th>Motivo</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for a in appointments %}
+            <tr>
+              <td>{{ a.slot.date }}</td>
+              <td>{{ a.slot.time }}</td>
+              <td>{{ a.slot.get_type_display }}</td>
+              <td>{{ a.reason|default:"-" }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% elif rut %}
+    <p class="text-muted">No se encontraron visitas para el RUT {{ rut }}.</p>
+  {% endif %}
+{% endblock %}
